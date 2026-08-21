@@ -20,9 +20,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    User(){}
+    public User(){}
 
-    User(String email, String password){
+    public User(String email, String password){
         this.email = email;
         this.password = password;
     }
