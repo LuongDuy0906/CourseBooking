@@ -2,10 +2,10 @@ package com.example.course_booking_server.dto.user;
 
 import com.example.course_booking_server.model.User;
 
-public class GetUserDTO{
+public class GetUserDTO {
     private String email;
 
-    GetUserDTO(User user){
+    public GetUserDTO(User user) {
         this.email = user.getEmail();
     }
 

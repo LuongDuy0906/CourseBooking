@@ -2,7 +2,9 @@ package com.example.course_booking_server.service.user;
 
 import org.springframework.stereotype.Service;
 
+import com.example.course_booking_server.common.constanst.UserRole;
 import com.example.course_booking_server.dto.user.CreateUserDTO;
+import com.example.course_booking_server.dto.user.GetUserDTO;
 import com.example.course_booking_server.model.User;
 import com.example.course_booking_server.repository.UserRepository;
 
@@ -17,9 +19,17 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(CreateUserDTO dto){
-        User newUser = new User(dto.getEmail(), dto.getPassword());
+    public String createUser(CreateUserDTO dto) {
+        boolean isExistUser = userRepo.findByEmail(dto.getEmail()).isPresent();
 
-        userRepo.save(newUser);
+        if (isExistUser) {
+            return "Email da ton tai";
+        }
+
+        User newUser = new User(dto.getEmail(), dto.getPassword(), UserRole.USER);
+
+        GetUserDTO newUserInfo = new GetUserDTO(userRepo.save(newUser));
+
+        return "Tao thanh cong nguoi dung voi email: " + newUserInfo.getEmail();
     }
 }
