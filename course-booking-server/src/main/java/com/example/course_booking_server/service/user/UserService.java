@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.example.course_booking_server.common.constanst.UserRole;
 import com.example.course_booking_server.dto.user.CreateUserDTO;
 import com.example.course_booking_server.dto.user.GetUserDTO;
+import com.example.course_booking_server.model.Profile;
 import com.example.course_booking_server.model.User;
 import com.example.course_booking_server.repository.UserRepository;
 
@@ -20,16 +21,19 @@ public class UserService {
 
     @Transactional
     public String createUser(CreateUserDTO dto) {
-        boolean isExistUser = userRepo.findByEmail(dto.getEmail()).isPresent();
+        boolean isExistUser = userRepo.findByPhone(dto.getPhone()).isPresent();
 
         if (isExistUser) {
             return "Email da ton tai";
         }
 
-        User newUser = new User(dto.getEmail(), dto.getPassword(), UserRole.USER);
+        User newUser = new User(dto.getPhone(), dto.getPassword(), UserRole.USER);
+        Profile newProfile = new Profile();
+
+        newUser.setProfile(newProfile);
 
         GetUserDTO newUserInfo = new GetUserDTO(userRepo.save(newUser));
 
-        return "Tao thanh cong nguoi dung voi email: " + newUserInfo.getEmail();
+        return "Tao thanh cong nguoi dung voi email: " + newUserInfo.getPhone();
     }
 }

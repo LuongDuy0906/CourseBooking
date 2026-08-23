@@ -5,23 +5,22 @@ import jakarta.validation.constraints.NotEmpty;
 
 public class CreateUserDTO {
     @NotEmpty(message = "Email khong duoc de trong")
-    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$", message = "Email khong hop le")
-    private String email;
+    private String phone;
 
     @NotEmpty()
     private String password;
 
-    public CreateUserDTO(String email, String password) {
-        this.email = email;
+    public CreateUserDTO(String phone, String password) {
+        this.phone = phone;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {

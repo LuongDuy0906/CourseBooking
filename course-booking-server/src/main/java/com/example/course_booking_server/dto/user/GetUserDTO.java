@@ -3,17 +3,17 @@ package com.example.course_booking_server.dto.user;
 import com.example.course_booking_server.model.User;
 
 public class GetUserDTO {
-    private String email;
+    private String phone;
 
     public GetUserDTO(User user) {
-        this.email = user.getEmail();
+        this.phone = user.getPhone();
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
