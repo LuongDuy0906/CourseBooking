@@ -1,14 +1,22 @@
 package com.example.course_booking_server.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.example.course_booking_server.common.constanst.UserRole;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,8 +33,11 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private UserRole userRole;
+    private Set<UserRole> userRoles = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Profile profile;
@@ -34,10 +45,9 @@ public class User {
     public User() {
     }
 
-    public User(String phone, String password, UserRole role) {
+    public User(String phone, String password) {
         this.phone = phone;
         this.password = password;
-        this.userRole = role;
     }
 
     public Long getId() {
@@ -64,14 +74,6 @@ public class User {
         this.password = password;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
-
     public Profile getProfile() {
         return profile;
     }
@@ -81,5 +83,17 @@ public class User {
         if (profile != null) {
             profile.setUser(this);
         }
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public void addRole(UserRole role) {
+        this.userRoles.add(role);
     }
 }

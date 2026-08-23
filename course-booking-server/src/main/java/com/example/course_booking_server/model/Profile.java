@@ -1,6 +1,5 @@
 package com.example.course_booking_server.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,7 +18,7 @@ public class Profile {
     private Long id;
 
     @Column(name = "avatar_url")
-    private String avatarUrl; 
+    private String avatarUrl;
 
     @Column(name = "name")
     private String name;
@@ -82,5 +81,4 @@ public class Profile {
         this.user = user;
     }
 
-    
 }

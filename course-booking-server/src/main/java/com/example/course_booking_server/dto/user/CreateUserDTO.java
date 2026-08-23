@@ -1,6 +1,5 @@
 package com.example.course_booking_server.dto.user;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 public class CreateUserDTO {

@@ -27,7 +27,8 @@ public class UserService {
             return "Email da ton tai";
         }
 
-        User newUser = new User(dto.getPhone(), dto.getPassword(), UserRole.USER);
+        User newUser = new User(dto.getPhone(), dto.getPassword());
+        newUser.addRole(UserRole.USER);
         Profile newProfile = new Profile();
 
         newUser.setProfile(newProfile);
